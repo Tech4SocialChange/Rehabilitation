@@ -18,7 +18,7 @@
 	font-size: 60px;
 }
 #responders	{
-	background-color: #888888;
+	background-color: #444444;
 }
 label {
 	min-width: 100px;
@@ -28,6 +28,13 @@ input {
 	min-width: 100px;
 	width: 100px;
 }
-#responders>li{
+#responders * {
 	text-align: left;
+}
+
+#responders h3 {
+	margin-top: 3em;
+}
+#responders h4 {
+	margin-top: 1em;
 }
