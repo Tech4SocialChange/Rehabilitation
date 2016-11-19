@@ -17,3 +17,14 @@
 .brand-heading {
 	font-size: 60px;
 }
+#qanda{
+	background-color: #888888;
+}
+label {
+	min-width: 100px;
+	width: 100px;
+}
+input {
+	min-width: 100px;
+	width: 100px;
+}
