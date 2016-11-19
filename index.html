@@ -135,7 +135,105 @@
     </section>
 
     <!-- Map Section -->
-    <div id="map"></div>
+    
+    <div style="padding:-top:30px;" class="row">
+    <div  class="col-md-8">
+        <div style="margin-top:0px;" id="map">    
+            <script>
+                
+                var _lon;
+                var _lat;
+                
+          function initMap() {
+           var map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 23.791703, lng: 90.411564},
+            zoom: 15
+        });
+              
+              google.maps.event.addListener(map, 'click', function( event ){
+                  _lon = event.latLng.lat();
+                  _lat = event.latLng.lng();
+            });
+
+        var infoWindow = new google.maps.InfoWindow({map: map});
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('Location found.');
+                map.setCenter(pos);
+                   var marker = new google.maps.Marker({
+                  position: pos,
+                  map: map
+                });
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                                  'Error: The Geolocation service failed.' :
+                                  'Error: Your browser doesn\'t support geolocation.');
+        }
+              }
+            </script>
+        
+        
+        
+        </div>
+        
+        </div>
+        
+        <div class="col-md-4">
+        <div id="form">
+            <form class="form-inline">
+              <div class="form-group">
+                <label for="exampleInputName2">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Jane Doe">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail2">Details</label>
+                <input type="text" class="form-control" id="details" placeholder="Details">
+              </div>
+                <div class="form-group">
+                <label for="exampleInputEmail2">Type</label>
+                <select id="type"  class="form-control">
+                    <option value="earthquack">
+                        Earthquack
+                    </option>
+                    <option value="buildingcollapse">
+                        Building Collapse
+                    </option>
+                    <option value="eviction">
+                        Eviction
+                    </option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-default">Send Alert Message</button>
+            </form>
+        </div>
+            
+        </div>
+        
+    </div>
+        
+        
+        
+        
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX-Tkd-RIDG_zOMlfznxOn6o6hv-k8HC8&callback=initMap">
+    </script>
 
     <!-- Footer -->
     <footer>
@@ -154,10 +252,43 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
     <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+   <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false">
+    
+    </script> -->
+      
 
     <!-- Theme JavaScript -->
     <script src="js/grayscale.min.js"></script>
+    
+    <script>
+        $( "#form" ).submit(function( event ) {
+            var data = {
+                name:$("#name").val(),
+                details: $("#details").val(),
+                type:$("#type").val(),
+                lon: _lon,
+                lat: _lat
+            };
+            console.log(data);
+            $.ajax({
+              type: "POST",
+              url: "http://kolorob.net/emergency/send-mail.php",
+              data: data,
+              dataType: "jsonp"
+            }).done(function() {
+                alert( "second success" );
+              })
+              .fail(function() {
+                alert( "error" );
+              })
+              .always(function() {
+                alert( "finished" );
+              });
+          event.preventDefault();
+        });
+        
+
+    </script>
 
 </body>
 
