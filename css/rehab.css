@@ -17,7 +17,7 @@
 .brand-heading {
 	font-size: 60px;
 }
-#qanda{
+#responders	{
 	background-color: #888888;
 }
 label {
@@ -27,4 +27,7 @@ label {
 input {
 	min-width: 100px;
 	width: 100px;
+}
+#responders>li{
+	text-align: left;
 }
