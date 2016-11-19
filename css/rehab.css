@@ -1,0 +1,19 @@
+.news {
+}
+.news>div, .news>h1 {
+	display:inline;
+	color: #42DCA3;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.info-block {
+	text-align: left;
+	margin-top: 4em;
+}
+.info-block td {
+	padding-right: 1em;
+	padding-bottom: 1em;
+}
+.brand-heading {
+	font-size: 60px;
+}
